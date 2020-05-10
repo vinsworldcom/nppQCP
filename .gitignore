@@ -11,3 +11,6 @@
 *.enc
 *.sdf
 *.VC.db
+x64/*
+Release/*
+tags

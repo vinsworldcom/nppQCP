@@ -7,7 +7,7 @@
 #include "csscolorparser.hpp"
 
 const TCHAR NPP_PLUGIN_NAME[] = TEXT("Quick Color Picker");
-const TCHAR NPP_PLUGIN_VER[] = TEXT("1.0");
+// const TCHAR NPP_PLUGIN_VER[] = TEXT("1.0");
 
 const int COMMNAD_COUNT = 7;
 
