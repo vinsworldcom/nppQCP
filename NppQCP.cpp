@@ -291,7 +291,7 @@ void ToggleColorHighlight() {
 // visit nppqcp website
 void VisitWebsite() {
 
-	wchar_t url[200] = L"https://github.com/nulled666/nppqcp/";
+	wchar_t url[200] = L"https://github.com/VinsWorldcom/nppQCP/";
 	::ShellExecute(NULL, L"open", url, NULL, NULL, SW_SHOWNORMAL);
 
 }
