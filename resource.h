@@ -1575,8 +1575,8 @@
 /* VERSION DEFINITIONS */
 #define VER_MAJOR   2
 #define VER_MINOR   1
-#define VER_RELEASE 0
-#define VER_BUILD   2
+#define VER_RELEASE 1
+#define VER_BUILD   1
 #define VER_STRING  STR(VER_MAJOR) "." STR(VER_MINOR) "." STR(VER_RELEASE) "." STR(VER_BUILD)
 
 #define FILE_DESCRIPTION  "Notepad++ Quick Color Picker Plugin."
