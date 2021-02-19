@@ -902,7 +902,7 @@ void iterFindHexColor(const HWND h_scintilla, const int start_position, const in
 
 void FindHexColor(const HWND h_scintilla, const int start_position, const int end_position) {
 
-    iterFindHexColor(h_scintilla, start_position, end_position, "#", " ;.)\0");
+    iterFindHexColor(h_scintilla, start_position, end_position, "#", "\" ;.)\0");
     iterFindHexColor(h_scintilla, start_position, end_position, "Color=\"", "\"");
 }
 
