@@ -1580,12 +1580,12 @@
 #define VER_STRING  STR(VER_MAJOR) "." STR(VER_MINOR) "." STR(VER_RELEASE) "." STR(VER_BUILD)
 
 #define FILE_DESCRIPTION  "Notepad++ Quick Color Picker Plugin."
-#define INTERNAL_NAME     "Notepad++ QCP"
+#define INTERNAL_NAME     "Quick Color Picker"
 
 #define COMPANY_NAME      "Vin's World"
 #define FILE_VERSION      VER_STRING
 #define LEGAL_COPYRIGHT   "Copyright (C) 2013-2014 N99+, 2020 VinsWorld."
 #define LEGAL_TRADEMARKS  ""
-#define ORIGINAL_FILENAME "QCP"
-#define PRODUCT_NAME      "QCP"
+#define ORIGINAL_FILENAME "NppQCP.dll"
+#define PRODUCT_NAME      "Quick Color Picker"
 #define PRODUCT_VERSION   VER_STRING
