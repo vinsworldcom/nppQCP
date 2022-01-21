@@ -180,10 +180,11 @@ void InitCommandMenu() {
 	UINT    			len = 0;
 	VS_FIXEDFILEINFO*   vsfi = NULL;
 	VerQueryValue(versionInfo, L"\\", (void**)&vsfi, &len);
-	wsprintf(version, L"%d.%d.%d",
+	wsprintf(version, L"%d.%d.%d.%d",
 		HIWORD(vsfi->dwFileVersionMS),
 		LOWORD(vsfi->dwFileVersionMS),
-		HIWORD(vsfi->dwFileVersionLS)
+		HIWORD(vsfi->dwFileVersionLS),
+		LOWORD(vsfi->dwFileVersionLS)
 	);
 	delete[] versionInfo;
 
