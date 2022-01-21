@@ -869,12 +869,12 @@ void iterFindHexColor(const HWND h_scintilla, const int start_position, const in
 
         if ( adjust ) {
             buff[0]='#';
-            buff[1]=buff[7];
-            buff[2]=buff[8];
-            buff[3]=buff[9];
-            buff[4]=buff[10];
-            buff[5]=buff[11];
-            buff[6]=buff[12];
+            buff[1]=buff[1+adjust];
+            buff[2]=buff[2+adjust];
+            buff[3]=buff[3+adjust];
+            buff[4]=buff[4+adjust];
+            buff[5]=buff[5+adjust];
+            buff[6]=buff[6+adjust];
             buff[7]='\0';
         }
 
@@ -903,7 +903,7 @@ void iterFindHexColor(const HWND h_scintilla, const int start_position, const in
 void FindHexColor(const HWND h_scintilla, const int start_position, const int end_position) {
 
     iterFindHexColor(h_scintilla, start_position, end_position, "#", "\" ;.)<\0");
-    iterFindHexColor(h_scintilla, start_position, end_position, "Color=\"", "\"");
+    iterFindHexColor(h_scintilla, start_position, end_position, "olor=\"", "\"");
 }
 
 
