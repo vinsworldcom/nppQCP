@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>QCP</ProjectName>
+    <ProjectName>QuickColorPicker</ProjectName>
     <ProjectGuid>{1590D7CD-7D3A-4AB7-A355-EE02F7FB987D}</ProjectGuid>
     <RootNamespace>NppQCP</RootNamespace>
     <Keyword>Win32Proj</Keyword>
