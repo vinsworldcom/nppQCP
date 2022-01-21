@@ -36,10 +36,10 @@ bool doCloseTag;
 #define TYPE_HSLA 4
 #define TYPE_HEX 5
 
-const wchar_t _ini_section[] = L"nppqcp";
+const wchar_t _ini_section[] = L"QuickColorPicker";
 const wchar_t _ini_key_enable[] = L"enabled";
 const wchar_t _ini_key_highlight[] = L"highlight";
-const wchar_t _ini_file[] = L"nppqcp.ini";
+const wchar_t _ini_file[] = L"QuickColorPicker.ini";
 TCHAR _ini_file_path[MAX_PATH];
 
 struct ColorMarker { CSSColorParser::Color color; int start; int end; };
