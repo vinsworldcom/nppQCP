@@ -36,10 +36,10 @@ bool doCloseTag;
 #define TYPE_HSLA 4
 #define TYPE_HEX 5
 
-const wchar_t _ini_section[] = L"nppqcp";
+const wchar_t _ini_section[] = L"QuickColorPicker";
 const wchar_t _ini_key_enable[] = L"enabled";
 const wchar_t _ini_key_highlight[] = L"highlight";
-const wchar_t _ini_file[] = L"nppqcp.ini";
+const wchar_t _ini_file[] = L"QuickColorPicker.ini";
 TCHAR _ini_file_path[MAX_PATH];
 
 struct ColorMarker { CSSColorParser::Color color; int start; int end; };
@@ -180,10 +180,11 @@ void InitCommandMenu() {
 	UINT    			len = 0;
 	VS_FIXEDFILEINFO*   vsfi = NULL;
 	VerQueryValue(versionInfo, L"\\", (void**)&vsfi, &len);
-	wsprintf(version, L"%d.%d.%d",
+	wsprintf(version, L"%d.%d.%d.%d",
 		HIWORD(vsfi->dwFileVersionMS),
 		LOWORD(vsfi->dwFileVersionMS),
-		HIWORD(vsfi->dwFileVersionLS)
+		HIWORD(vsfi->dwFileVersionLS),
+		LOWORD(vsfi->dwFileVersionLS)
 	);
 	delete[] versionInfo;
 
@@ -869,12 +870,12 @@ void iterFindHexColor(const HWND h_scintilla, const int start_position, const in
 
         if ( adjust ) {
             buff[0]='#';
-            buff[1]=buff[7];
-            buff[2]=buff[8];
-            buff[3]=buff[9];
-            buff[4]=buff[10];
-            buff[5]=buff[11];
-            buff[6]=buff[12];
+            buff[1]=buff[1+adjust];
+            buff[2]=buff[2+adjust];
+            buff[3]=buff[3+adjust];
+            buff[4]=buff[4+adjust];
+            buff[5]=buff[5+adjust];
+            buff[6]=buff[6+adjust];
             buff[7]='\0';
         }
 
@@ -902,8 +903,8 @@ void iterFindHexColor(const HWND h_scintilla, const int start_position, const in
 
 void FindHexColor(const HWND h_scintilla, const int start_position, const int end_position) {
 
-    iterFindHexColor(h_scintilla, start_position, end_position, "#", "\" ;.)\0");
-    iterFindHexColor(h_scintilla, start_position, end_position, "Color=\"", "\"");
+    iterFindHexColor(h_scintilla, start_position, end_position, "#", "\" ;.)<\0");
+    iterFindHexColor(h_scintilla, start_position, end_position, "olor=\"", "\"");
 }
 
 
