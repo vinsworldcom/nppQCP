@@ -198,6 +198,7 @@
     <ClInclude Include="shared\PluginInterface.h" />
     <ClInclude Include="shared\Notepad_plus_msgs.h" />
     <ClInclude Include="shared\Scintilla.h" />
+    <ClInclude Include="shared\Sci_Position.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="QuickColorPicker\ColorPicker.rc" />
