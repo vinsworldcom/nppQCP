@@ -163,7 +163,7 @@ float css_hue_to_rgb(float m1, float m2, float h) {
         return m2;
     }
     if (h * 3.0f < 2.0f) {
-        return m1 + (m2 - m1) * (2.0 / 3.0 - h) * 6.0f;
+        return m1 + (m2 - m1) * (2.0f / 3.0f - h) * 6.0f;
     }
     return m1;
 }

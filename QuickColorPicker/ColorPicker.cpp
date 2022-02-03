@@ -484,9 +484,9 @@ void ColorPicker::DrawColorBlock(const HDC hdc, const RECT rc, const RGBAColor c
 
 COLORREF ColorPicker::mixcolor(RGBAColor fgcolor, RGBAColor bkcolor) {
 	double r, g, b;
-	r = (fgcolor.r * fgcolor.a) + (bkcolor.r * (1.0 - fgcolor.a));
-	g = (fgcolor.g * fgcolor.a) + (bkcolor.g * (1.0 - fgcolor.a));
-	b = (fgcolor.b * fgcolor.a) + (bkcolor.b * (1.0 - fgcolor.a));
+	r = ((double)fgcolor.r * fgcolor.a) + ((double)bkcolor.r * (1.0 - fgcolor.a));
+	g = ((double)fgcolor.g * fgcolor.a) + ((double)bkcolor.g * (1.0 - fgcolor.a));
+	b = ((double)fgcolor.b * fgcolor.a) + ((double)bkcolor.b * (1.0 - fgcolor.a));
 	return RGB(r, g, b);
 }
 
