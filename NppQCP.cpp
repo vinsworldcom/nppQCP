@@ -42,7 +42,7 @@ const wchar_t _ini_key_highlight[] = L"highlight";
 const wchar_t _ini_file[] = L"QuickColorPicker.ini";
 TCHAR _ini_file_path[MAX_PATH];
 
-struct ColorMarker { CSSColorParser::Color color; int start; int end; };
+struct ColorMarker { CSSColorParser::Color color; int start = 0; int end = 0; };
 ColorMarker _color_markers[MAX_COLOR_CODE_HIGHTLIGHT];
 int _color_marker_index = -1;
 

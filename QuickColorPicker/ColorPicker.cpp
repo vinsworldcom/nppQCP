@@ -20,7 +20,9 @@ ColorPicker::ColorPicker() {
 	_instance = NULL;
 	_parent_window = NULL;
 	_color_popup = NULL;
-	
+
+	_parent_rc = { 0, 0, 0, 0 };
+
 	_message_window = NULL;
 
 	_pick_cursor = NULL;
@@ -30,12 +32,16 @@ ColorPicker::ColorPicker() {
 	_old_color = color;
 	_new_color = color;	
 
+	_rect_palette = { 0, 0, 0, 0 };
+
 	_old_color_row = -1;
 	_old_color_index = -1;
 
 	_previous_color = color;
 	_previous_row = -1;
 	_previous_index = -1;
+
+	_rect_adjust_buttons = { 0, 0, 0, 0 };
 
 	_adjust_color = _old_color;
 	_adjust_preserved_hue = 0;
@@ -44,7 +50,7 @@ ColorPicker::ColorPicker() {
 	_adjust_center_row = 0;
 	_adjust_row = -1;
 	_adjust_index = -1;
-	
+
 	_is_first_create = false;
 	_is_color_chooser_shown = false;
 
