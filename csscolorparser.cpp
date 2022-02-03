@@ -116,8 +116,8 @@ const size_t namedColorCount = sizeof (namedColors) / sizeof (NamedColor);
 
 template <typename T>
 uint8_t clamp_css_byte(T i) {  // Clamp to integer 0 .. 255.
-    i = std::round(i);  // Seems to be what Chrome does (vs truncation).
-    return i < 0 ? 0 : i > 255 ? 255 : i;
+    i = (T)std::round(i);  // Seems to be what Chrome does (vs truncation).
+    return (uint8_t)(i < 0 ? 0 : i > 255 ? 255 : i);
 }
 
 template <typename T>
@@ -163,7 +163,7 @@ float css_hue_to_rgb(float m1, float m2, float h) {
         return m2;
     }
     if (h * 3.0f < 2.0f) {
-        return m1 + (m2 - m1) * (2.0 / 3.0 - h) * 6.0f;
+        return (float)(m1 + (m2 - m1) * (2.0f / 3.0f - h) * 6.0f);
     }
     return m1;
 }

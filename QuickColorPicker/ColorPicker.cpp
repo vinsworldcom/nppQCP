@@ -20,7 +20,9 @@ ColorPicker::ColorPicker() {
 	_instance = NULL;
 	_parent_window = NULL;
 	_color_popup = NULL;
-	
+
+	_parent_rc = { 0, 0, 0, 0 };
+
 	_message_window = NULL;
 
 	_pick_cursor = NULL;
@@ -30,12 +32,16 @@ ColorPicker::ColorPicker() {
 	_old_color = color;
 	_new_color = color;	
 
+	_rect_palette = { 0, 0, 0, 0 };
+
 	_old_color_row = -1;
 	_old_color_index = -1;
 
 	_previous_color = color;
 	_previous_row = -1;
 	_previous_index = -1;
+
+	_rect_adjust_buttons = { 0, 0, 0, 0 };
 
 	_adjust_color = _old_color;
 	_adjust_preserved_hue = 0;
@@ -44,7 +50,7 @@ ColorPicker::ColorPicker() {
 	_adjust_center_row = 0;
 	_adjust_row = -1;
 	_adjust_index = -1;
-	
+
 	_is_first_create = false;
 	_is_color_chooser_shown = false;
 
@@ -484,9 +490,9 @@ void ColorPicker::DrawColorBlock(const HDC hdc, const RECT rc, const RGBAColor c
 
 COLORREF ColorPicker::mixcolor(RGBAColor fgcolor, RGBAColor bkcolor) {
 	double r, g, b;
-	r = (fgcolor.r * fgcolor.a) + (bkcolor.r * (1.0 - fgcolor.a));
-	g = (fgcolor.g * fgcolor.a) + (bkcolor.g * (1.0 - fgcolor.a));
-	b = (fgcolor.b * fgcolor.a) + (bkcolor.b * (1.0 - fgcolor.a));
+	r = ((double)fgcolor.r * fgcolor.a) + ((double)bkcolor.r * (1.0 - fgcolor.a));
+	g = ((double)fgcolor.g * fgcolor.a) + ((double)bkcolor.g * (1.0 - fgcolor.a));
+	b = ((double)fgcolor.b * fgcolor.a) + ((double)bkcolor.b * (1.0 - fgcolor.a));
 	return RGB(r, g, b);
 }
 
@@ -542,7 +548,7 @@ void ColorPicker::DisplayNewColor(RGBAColor color){
 
 	// output
 	wchar_t output[80];
-	swprintf(output, sizeof(output), L"#%hs / %d,%d,%d / HSLA(%d,%d%%,%d%%,%.2g)", hex, GetRValue(color), GetGValue(color), GetBValue(color), round(hsl.h), round(hsl.s * 100), round(hsl.l * 100), hsl.a);
+	swprintf(output, sizeof(output)/sizeof(wchar_t), L"#%hs / %d,%d,%d / HSLA(%d,%d%%,%d%%,%.2g)", hex, GetRValue(color), GetGValue(color), GetBValue(color), round(hsl.h), round(hsl.s * 100), round(hsl.l * 100), hsl.a);
 	::SetDlgItemText(_color_popup, IDC_COLOR_TEXT, output);
 
 	PaintColorCompareSwatch();

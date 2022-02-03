@@ -19,8 +19,13 @@ ScreenPicker::ScreenPicker(COLORREF color){
 	_instance = NULL;
 	_parent_window = NULL;
 	_mask_window = NULL;
+	_info_window = NULL;
 
 	_is_shown = false;
+
+	_zoom_area = NULL;
+
+	_cursor = NULL;
 
 	_old_color = color;
 	_new_color = 0;
