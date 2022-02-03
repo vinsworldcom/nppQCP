@@ -231,8 +231,8 @@ void InvokeColorPicker(bool use_screen_picker) {
 		CreateColorPicker();
 
 	HWND h_scintilla = GetScintilla();
-	_replace_start = (int)::SendMessage(h_scintilla, SCI_GETSELECTIONSTART, 0, 0);
-	_replace_end = (int)::SendMessage(h_scintilla, SCI_GETSELECTIONEND, 0, 0);
+	_replace_start = ::SendMessage(h_scintilla, SCI_GETSELECTIONSTART, 0, 0);
+	_replace_end = ::SendMessage(h_scintilla, SCI_GETSELECTIONEND, 0, 0);
 	_current_type = TYPE_HEX;
 
 	if (use_screen_picker) {
@@ -352,10 +352,12 @@ LRESULT CALLBACK MessageWindowWinproc(HWND hwnd, UINT message, WPARAM wparam, LP
 		case WM_QCP_START_SCREEN_PICKER:
 		{
 			::SetWindowPos(nppData._nppHandle, HWND_BOTTOM, 0,0,0,0, SWP_NOMOVE|SWP_NOSIZE);
+            break;
 		}
 		case WM_QCP_END_SCREEN_PICKER:
 		{
 			::ShowWindow(nppData._nppHandle, SW_SHOW);
+            break;
 		}
 		default:
 		{
@@ -438,8 +440,8 @@ bool ShowColorPicker(){
 	HWND h_scintilla = GetScintilla();
 
 	// check for selection
-	int selection_start = (int)::SendMessage(h_scintilla, SCI_GETSELECTIONSTART, 0, 0);
-	int selection_end = (int)::SendMessage(h_scintilla, SCI_GETSELECTIONEND, 0, 0);
+	int selection_start = ::SendMessage(h_scintilla, SCI_GETSELECTIONSTART, 0, 0);
+	int selection_end = ::SendMessage(h_scintilla, SCI_GETSELECTIONEND, 0, 0);
 
 	// nothing selected
 	if(selection_start==selection_end)
@@ -472,12 +474,12 @@ void PlaceColorPickerAt(HWND h_scintilla, int pos) {
 
 	// prepare coordinates
 	POINT p;
-	p.x = (long)::SendMessage(h_scintilla, SCI_POINTXFROMPOSITION, 0, pos);
-	p.y = (long)::SendMessage(h_scintilla, SCI_POINTYFROMPOSITION, 0, pos);
+	p.x = ::SendMessage(h_scintilla, SCI_POINTXFROMPOSITION, 0, pos);
+	p.y = ::SendMessage(h_scintilla, SCI_POINTYFROMPOSITION, 0, pos);
 	::ClientToScreen(h_scintilla, &p);
 
 	// all line height in scintilla is the same
-	int line_height = (int)::SendMessage(h_scintilla, SCI_TEXTHEIGHT, 0, 1);
+	int line_height = ::SendMessage(h_scintilla, SCI_TEXTHEIGHT, 0, 1);
 
 	RECT rc;
 	rc.top = p.y;
@@ -566,8 +568,8 @@ bool CheckSelectionForBracketColor(const HWND h_scintilla, const int start, cons
 	// read in the whole string and parse
 	char buff[50];
 
-	int line = (int)::SendMessage(h_scintilla, SCI_LINEFROMPOSITION, (WPARAM)start, 0);
-	int line_end = (int)::SendMessage(h_scintilla, SCI_GETLINEENDPOSITION, (WPARAM)line, 0);
+	int line = ::SendMessage(h_scintilla, SCI_LINEFROMPOSITION, (WPARAM)start, 0);
+	int line_end = ::SendMessage(h_scintilla, SCI_GETLINEENDPOSITION, (WPARAM)line, 0);
 	int range_end = end + 45;
 	range_end = range_end > line_end ? line_end : range_end;
 
@@ -595,7 +597,10 @@ bool CheckSelectionForBracketColor(const HWND h_scintilla, const int start, cons
 			}
 			else {
 				// close bracket ')' found, cut the end and continue
-				buff[i + 1] = '\0';
+				if (i < buff_len-1)
+                    buff[i + 1] = '\0';
+				else
+                    buff[i] = '\0';
 				close_pos += i;
 				break;
 			}
@@ -637,8 +642,8 @@ void HideColorPicker() {
 bool HasSelection(){
 
 	HWND h_scintilla = GetScintilla();
-	int selection_start = (int)::SendMessage(h_scintilla, SCI_GETSELECTIONSTART, 0, 0);
-	int selection_end = (int)::SendMessage(h_scintilla, SCI_GETSELECTIONEND, 0, 0);
+	int selection_start = ::SendMessage(h_scintilla, SCI_GETSELECTIONSTART, 0, 0);
+	int selection_end = ::SendMessage(h_scintilla, SCI_GETSELECTIONEND, 0, 0);
 
 	if(selection_start==selection_end)
 		return false;
@@ -788,16 +793,16 @@ void HighlightColorCode() {
 	// determine parse region
 
     //SCI_GETFIRSTVISIBLELINE first line is 0
-    int first_visible_line = (int)::SendMessage(h_scintilla, SCI_GETFIRSTVISIBLELINE, 0, 0);
+    int first_visible_line = ::SendMessage(h_scintilla, SCI_GETFIRSTVISIBLELINE, 0, 0);
 	int last_line = first_visible_line + (int)::SendMessage(h_scintilla, SCI_LINESONSCREEN, 0, 0);
 
 	first_visible_line = first_visible_line - 1; // i don't know why - but this fix the missing color
 
     int start_position = 0;
 	if(first_visible_line>1)
-		start_position = (int)::SendMessage(h_scintilla, SCI_POSITIONFROMLINE, first_visible_line, 0);
+		start_position = ::SendMessage(h_scintilla, SCI_POSITIONFROMLINE, first_visible_line, 0);
 
-	int end_position = (int)::SendMessage(h_scintilla, SCI_GETLINEENDPOSITION, last_line, 0);
+	int end_position = ::SendMessage(h_scintilla, SCI_GETLINEENDPOSITION, last_line, 0);
 
 	// generate marker list
 	FindHexColor(h_scintilla, start_position, end_position);
@@ -826,7 +831,7 @@ void iterFindHexColor(const HWND h_scintilla, const int start_position, const in
 		tf.chrg.cpMax = end_position+1;
 		tf.lpstrText = start_match;
 
-		int target_pos = (int)::SendMessage(h_scintilla, SCI_FINDTEXT, 0, (LPARAM)&tf);
+		int target_pos = ::SendMessage(h_scintilla, SCI_FINDTEXT, 0, (LPARAM)&tf);
 
 		// not found
 		if(target_pos == -1) {
@@ -834,8 +839,8 @@ void iterFindHexColor(const HWND h_scintilla, const int start_position, const in
 		}
 
 		// read in the possible color code sequence
-		int line = (int)::SendMessage(h_scintilla, SCI_LINEFROMPOSITION, (WPARAM)target_pos, 0);
-		int line_end = (int)::SendMessage(h_scintilla, SCI_GETLINEENDPOSITION, (WPARAM)line, 0);
+		int line = ::SendMessage(h_scintilla, SCI_LINEFROMPOSITION, (WPARAM)target_pos, 0);
+		int line_end = ::SendMessage(h_scintilla, SCI_GETLINEENDPOSITION, (WPARAM)line, 0);
 		int range_end = target_pos + 9 + adjust;
 		range_end = range_end > line_end ? line_end : range_end;
 
@@ -923,7 +928,7 @@ void FindBracketColor(const HWND h_scintilla, const int start_position, const in
 		tf.chrg.cpMax = search_end;
 		tf.lpstrText = prefix;
 
-		int target_pos = (int)::SendMessage(h_scintilla, SCI_FINDTEXT, 0, (LPARAM)&tf);
+		int target_pos = ::SendMessage(h_scintilla, SCI_FINDTEXT, 0, (LPARAM)&tf);
 
 		// not found
 		if (target_pos == -1) {
@@ -931,8 +936,8 @@ void FindBracketColor(const HWND h_scintilla, const int start_position, const in
 		}
 
 		// read in the possible color code sequence
-		int line = (int)::SendMessage(h_scintilla, SCI_LINEFROMPOSITION, (WPARAM)target_pos, 0);
-		int line_end = (int)::SendMessage(h_scintilla, SCI_GETLINEENDPOSITION, (WPARAM)line, 0);
+		int line = ::SendMessage(h_scintilla, SCI_LINEFROMPOSITION, (WPARAM)target_pos, 0);
+		int line_end = ::SendMessage(h_scintilla, SCI_GETLINEENDPOSITION, (WPARAM)line, 0);
 		int range_end = target_pos + 45;
 		range_end = range_end > line_end ? line_end : range_end;
 
@@ -961,7 +966,10 @@ void FindBracketColor(const HWND h_scintilla, const int start_position, const in
 				}
 				else {
 					// close bracket ')' found, cut the end and continue
-					buff[i + 1] = '\0';
+                    if (i < buff_length - 1) 
+                        buff[i + 1] = '\0';
+					else
+                        buff[i] = '\0';
 					is_valid = true;
 					break;
 				}
@@ -1037,12 +1045,12 @@ void DrawColorMarkers(const HWND h_scintilla) {
 
 		int length = cm.end - cm.start;
 
-		int start_x = (int)::SendMessage(h_scintilla, SCI_POINTXFROMPOSITION, 0, cm.start);
-		int start_y = (int)::SendMessage(h_scintilla, SCI_POINTYFROMPOSITION, 0, cm.start);
-		int end_x = (int)::SendMessage(h_scintilla, SCI_POINTXFROMPOSITION, 0, cm.end);
-		int end_y = (int)::SendMessage(h_scintilla, SCI_POINTYFROMPOSITION, 0, cm.end);
+		int start_x = ::SendMessage(h_scintilla, SCI_POINTXFROMPOSITION, 0, cm.start);
+		int start_y = ::SendMessage(h_scintilla, SCI_POINTYFROMPOSITION, 0, cm.start);
+		int end_x = ::SendMessage(h_scintilla, SCI_POINTXFROMPOSITION, 0, cm.end);
+		int end_y = ::SendMessage(h_scintilla, SCI_POINTYFROMPOSITION, 0, cm.end);
 
-		int line_height = (int)::SendMessage(h_scintilla, SCI_TEXTHEIGHT, 0, 0);
+		int line_height = ::SendMessage(h_scintilla, SCI_TEXTHEIGHT, 0, 0);
 
 		// convert to COLORREF
 		COLORREF colorref = RGB(cm.color.r, cm.color.g, cm.color.b);

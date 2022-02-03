@@ -542,7 +542,7 @@ void ColorPicker::DisplayNewColor(RGBAColor color){
 
 	// output
 	wchar_t output[80];
-	swprintf(output, sizeof(output), L"#%hs / %d,%d,%d / HSLA(%d,%d%%,%d%%,%.2g)", hex, GetRValue(color), GetGValue(color), GetBValue(color), round(hsl.h), round(hsl.s * 100), round(hsl.l * 100), hsl.a);
+	swprintf(output, sizeof(output)/sizeof(wchar_t), L"#%hs / %d,%d,%d / HSLA(%d,%d%%,%d%%,%.2g)", hex, GetRValue(color), GetGValue(color), GetBValue(color), round(hsl.h), round(hsl.s * 100), round(hsl.l * 100), hsl.a);
 	::SetDlgItemText(_color_popup, IDC_COLOR_TEXT, output);
 
 	PaintColorCompareSwatch();
