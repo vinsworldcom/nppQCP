@@ -49,10 +49,10 @@ void CreateColorPicker();
 bool ShowColorPicker();
 void HideColorPicker();
 bool HasSelection();
-void PlaceColorPickerAt(HWND h_scintilla, int pos);
+void PlaceColorPickerAt(HWND h_scintilla, intptr_t pos);
 
-bool CheckSelectionForHexColor(const HWND h_scintilla, const int start, const int end);
-bool CheckSelectionForBracketColor(const HWND h_scintilla, const int start, const int end);
+bool CheckSelectionForHexColor(const HWND h_scintilla, const intptr_t start, const intptr_t end);
+bool CheckSelectionForBracketColor(const HWND h_scintilla, const intptr_t start, const intptr_t end);
 
 void WriteColor(COLORREF color);
 
@@ -62,10 +62,10 @@ void SaveRecentColor();
 void HighlightColorCode();
 
 void EmptyColorMarker();
-bool SaveColorMarker(CSSColorParser::Color color, int marker_start, int marker_end);
+bool SaveColorMarker(CSSColorParser::Color color, intptr_t marker_start, intptr_t marker_end);
 
-void FindHexColor(const HWND h_scintilla, const int start_position, const int end_position);
-void FindBracketColor(const HWND h_scintilla, const int start_position, const int end_position, char* suff);
+void FindHexColor(const HWND h_scintilla, const intptr_t start_position, const intptr_t end_position);
+void FindBracketColor(const HWND h_scintilla, const intptr_t start_position, const intptr_t end_position, char* suff);
 
 void DrawColorMarkers(const HWND h_scintilla);
 void ClearColorMarkers();
