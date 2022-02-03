@@ -546,7 +546,7 @@ bool CheckSelectionForBracketColor(const HWND h_scintilla, const int start, cons
 		return false;
 
 	// check for prefix
-	char prefix[8];
+	char prefix[8] = { 0 };
 	::SendMessage(h_scintilla, SCI_GETSELTEXT, 0, (LPARAM)&prefix);
 
 	if (strcmp(prefix,"rgb") == 0) {
@@ -566,7 +566,7 @@ bool CheckSelectionForBracketColor(const HWND h_scintilla, const int start, cons
 	}
 
 	// read in the whole string and parse
-	char buff[50];
+	char buff[50] = { 0 };
 
 	int line = ::SendMessage(h_scintilla, SCI_LINEFROMPOSITION, (WPARAM)start, 0);
 	int line_end = ::SendMessage(h_scintilla, SCI_GETLINEENDPOSITION, (WPARAM)line, 0);
