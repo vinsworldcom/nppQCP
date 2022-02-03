@@ -9,7 +9,20 @@ The C++ Color Picker class can also be reused in other programs.
 ### Updates
 
 v2.1
-- Updated to parse Notepad++ XML theme files.
+- Updated to parse Notepad++ XML theme files.  Now recognizes the follwing:
+
+    + #ff0000
+    + #ff0000 more text
+    + #ff0000;
+    + #ff0000.
+    + (#ff0000)
+    + "#ff0000"
+    + \<some_tag\>#ff0000\</some_tag\>
+    + olor="#ff0000"
+    + rgb(255,0,0)
+    + rgba(255,0,0,0)
+    + hsl(255,0%,0%)
+    + hsla(255,0%,0%,1)
 
 ### Original Plugin
 
