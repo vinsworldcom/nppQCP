@@ -573,12 +573,12 @@ bool CheckSelectionForBracketColor(const HWND h_scintilla, const intptr_t start,
 	intptr_t range_end = end + 45;
 	range_end = range_end > line_end ? line_end : range_end;
 
-	Sci_TextRange tr;
+	Sci_TextRangeFull tr;
 	tr.chrg.cpMin = start;
 	tr.chrg.cpMax = range_end;
 	tr.lpstrText = buff;
 
-	::SendMessage(h_scintilla, SCI_GETTEXTRANGE, 0, (LPARAM)&tr);
+	::SendMessage(h_scintilla, SCI_GETTEXTRANGEFULL, 0, (LPARAM)&tr);
 
 	// check for validity 
 	intptr_t close_pos = start;
@@ -826,12 +826,12 @@ void iterFindHexColor(const HWND h_scintilla, const intptr_t start_position, con
 
     while (marker_not_full && search_start < end_position) {
 
-		Sci_TextToFind tf;
+		Sci_TextToFindFull  tf;
 		tf.chrg.cpMin = search_start;
 		tf.chrg.cpMax = end_position+1;
 		tf.lpstrText = start_match;
 
-		intptr_t target_pos = ::SendMessage(h_scintilla, SCI_FINDTEXT, 0, (LPARAM)&tf);
+		intptr_t target_pos = ::SendMessage(h_scintilla, SCI_FINDTEXTFULL, 0, (LPARAM)&tf);
 
 		// not found
 		if(target_pos == -1) {
@@ -847,12 +847,12 @@ void iterFindHexColor(const HWND h_scintilla, const intptr_t start_position, con
 		char buff[16];
 		size_t buff_length = sizeof(buff);
 
-		Sci_TextRange tr;
+		Sci_TextRangeFull tr;
 		tr.chrg.cpMin = target_pos;
 		tr.chrg.cpMax = range_end;
 		tr.lpstrText = buff;
 
-		::SendMessage(h_scintilla, SCI_GETTEXTRANGE, 0, (LPARAM)&tr);
+		::SendMessage(h_scintilla, SCI_GETTEXTRANGEFULL, 0, (LPARAM)&tr);
 		
 		bool is_valid = false;
 
@@ -923,12 +923,12 @@ void FindBracketColor(const HWND h_scintilla, const intptr_t start_position, con
 
 	while (marker_not_full && search_start < end_position) {
 
-		Sci_TextToFind tf;
+		Sci_TextToFindFull  tf;
 		tf.chrg.cpMin = search_start;
 		tf.chrg.cpMax = search_end;
 		tf.lpstrText = prefix;
 
-		intptr_t target_pos = ::SendMessage(h_scintilla, SCI_FINDTEXT, 0, (LPARAM)&tf);
+		intptr_t target_pos = ::SendMessage(h_scintilla, SCI_FINDTEXTFULL, 0, (LPARAM)&tf);
 
 		// not found
 		if (target_pos == -1)
@@ -943,12 +943,12 @@ void FindBracketColor(const HWND h_scintilla, const intptr_t start_position, con
 		char buff[50];
 		size_t buff_length = sizeof(buff);
 
-		Sci_TextRange tr;
+		Sci_TextRangeFull tr;
 		tr.chrg.cpMin = target_pos;
 		tr.chrg.cpMax = range_end;
 		tr.lpstrText = buff;
 
-		::SendMessage(h_scintilla, SCI_GETTEXTRANGE, 0, (LPARAM)&tr);
+		::SendMessage(h_scintilla, SCI_GETTEXTRANGEFULL, 0, (LPARAM)&tr);
 
 		bool is_valid = false;
 
