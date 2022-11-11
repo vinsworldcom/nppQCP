@@ -6,6 +6,10 @@ The C++ Color Picker class can also be reused in other programs.
 
 [Original Plugin](https://github.com/nulled666/nppqcp) was [abandoned](https://github.com/nulled666/nppqcp/issues/30#issuecomment-471243027).
 
+## Compatibility
+
+QuickColorPicker 2.2.1.1 and newer requires Notepad++ 8.4.6 or newer.
+
 ### Updates
 
 v2.1
