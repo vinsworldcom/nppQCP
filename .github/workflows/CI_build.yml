@@ -28,7 +28,7 @@ jobs:
     - name: Archive
       uses: actions/upload-artifact@v3
       with:
-          name: NppQCP-${{ matrix.build_configuration }}-${{ matrix.build_platform }}
+          name: QuickColorPicker-${{ matrix.build_configuration }}-${{ matrix.build_platform }}
           path: ${{ matrix.build_configuration }}\${{ matrix.build_platform }}\QuickColorPicker.dll
 
     - name: Release
