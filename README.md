@@ -10,9 +10,27 @@ The C++ Color Picker class can also be reused in other programs.
 
 QuickColorPicker 2.2.1.1 and newer requires Notepad++ 8.4.6 or newer.
 
-### Updates
+Newer versions of Notepad++ use [`SC_TECHNOLOGY_DIRECTWRITE`](https://www.scintilla.org/ScintillaDoc.html#SCI_SETTECHNOLOGY)
+which causes the inline color underlines to not display.  If you have a
+scripting plugin, you can disable `SC_TECHNOLOGY_DIRECTWRITE` for the buffer
+with QuickColorPicker manually.
 
-v2.1
+### [PythonScript](https://github.com/bruderstein/PythonScript/)
+
+```
+editor.setTechnology(TECHNOLOGY.DEFAULT)
+```
+
+### [NppExec](https://github.com/d0vgan/nppexec)
+
+```
+SCI_SENDMSG SCI_SETTECHNOLOGY SC_TECHNOLOGY_DEFAULT
+```
+
+## Updates
+
+### v2.1
+
 - Updated to parse Notepad++ XML theme files.  Now recognizes the follwing:
 
     + #ff0000
@@ -28,9 +46,8 @@ v2.1
     + hsl(255,0%,0%)
     + hsla(255,0%,0%,1)
 
-### Original Plugin
+## v2.0 (orginal plugin)
 
-v2.0
 - Fixed crash problem cause by Scintilla RegExp search interface
 - Use self-drawn underline marker to avoid comflict with other plugins & features
 - Added Color Picker & Screen Picker commands for hotkey assignment
