@@ -8,7 +8,7 @@
 extern FuncItem funcItem[COMMNAD_COUNT];
 extern NppData nppData;
 extern bool doCloseTag;
-
+extern bool _enable_qcp;
 
 BOOL APIENTRY DllMain( HANDLE hModule, 
                        DWORD  reasonForCall, 
@@ -57,39 +57,47 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode) {
 		}
 		case SCN_PAINTED:
 		{
-			HighlightColorCode();
+			if (_enable_qcp)
+				HighlightColorCode();
 		}
 		case SCN_UPDATEUI:
 		{
-			if (notifyCode->updated & SC_UPDATE_SELECTION ) {
-				if (!HasSelection())
-					HideColorPicker();
+			if (_enable_qcp) {
+				if (notifyCode->updated & SC_UPDATE_SELECTION ) {
+					if (!HasSelection())
+						HideColorPicker();
+				}
 			}
 			break;
 		}
 		case SCN_DOUBLECLICK:
 		{
-			ShowColorPicker();
+			if (_enable_qcp)
+				ShowColorPicker();
 			break;
 		}
 		case SCN_ZOOM:
 		{
-			HideColorPicker();
+			if (_enable_qcp)
+				HideColorPicker();
 			break;
 		}
 		case SCN_MODIFIED:
 		{
-			if (notifyCode->modificationType & SC_MOD_DELETETEXT
-				|| notifyCode->modificationType & SC_MOD_INSERTTEXT) {
-				HideColorPicker();
-            }
-            break;
+			if (_enable_qcp) {
+				if (notifyCode->modificationType & SC_MOD_DELETETEXT
+					|| notifyCode->modificationType & SC_MOD_INSERTTEXT) {
+					HideColorPicker();
+				}
+			}
+			break;
 		}		
 		case NPPN_LANGCHANGED:
 		case NPPN_BUFFERACTIVATED:
 		{
-			HideColorPicker();
-            break;
+			if (_enable_qcp)
+				HideColorPicker();
+			break;
 		}
 		default:
 		{
@@ -108,7 +116,8 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode) {
 extern "C" __declspec(dllexport) LRESULT messageProc(UINT message, WPARAM wParam, LPARAM lParam) {
 	
 	if (message == WM_MOVE) {
-		HideColorPicker();
+		if (_enable_qcp)
+			HideColorPicker();
 	}
 	return TRUE;
 
