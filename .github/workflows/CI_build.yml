@@ -26,7 +26,7 @@ jobs:
           ZIPCMD: 7z a -tzip
 
     - name: Archive
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
           name: QuickColorPicker-${{ matrix.build_configuration }}-${{ matrix.build_platform }}
           path: ${{ matrix.build_configuration }}\${{ matrix.build_platform }}\QuickColorPicker.dll
