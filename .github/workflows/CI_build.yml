@@ -32,7 +32,7 @@ jobs:
           path: ${{ matrix.build_configuration }}\${{ matrix.build_platform }}\QuickColorPicker.dll
 
     - name: Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       if: startsWith(github.ref, 'refs/tags/') && matrix.build_configuration == 'Release'
       with:
           body: ${{ github.event.commits[0].message }}
